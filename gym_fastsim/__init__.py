@@ -11,3 +11,9 @@ register(
     entry_point='gym_fastsim.simple_nav:SimpleNavEnv',
     kwargs={"xml_env":join(dirname(__file__), default_env)}
 )
+
+register(
+    id='FastsimSimpleNavigationPos-v0',
+    entry_point='gym_fastsim.simple_nav_pos:SimpleNavPosEnv',
+    kwargs={"xml_env":join(dirname(__file__), default_env)}
+)
