@@ -11,7 +11,7 @@ import time
 
 display= True
 
-env = gym.make('FastsimSimpleNavigation-v0')
+env = gym.make('FastsimEmptyMapNavigationPos-v0')
 env.reset()
 action=[10,11]
 
