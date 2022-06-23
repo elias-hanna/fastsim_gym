@@ -57,7 +57,7 @@ reward_functions = { "binary_goalbased":reward_binary_goal_based,
 
 
 class SimpleNavEnv(gym.Env):
-	def __init__(self,xml_env, reward_func="binary_goalbased",render=False, light_sensor_range=200., light_sensor_mode="realistic"):
+	def __init__(self,xml_env, reward_func="binary_goalbased",render=False, light_sensor_range=200., light_sensor_mode="realistic", physical_traps=False):
 		# Fastsim setup
 		# XML files typically contain relative names (for map) wrt their own path. Make that work
 		xml_dir, xml_file = os.path.split(xml_env)
@@ -116,7 +116,9 @@ class SimpleNavEnv(gym.Env):
 			raise RuntimeError("Unknown reward '%s'" % str(reward_func))
 		else:
 			self.reward_func = reward_functions[reward_func]
-		
+
+                # Physical traps
+                self.physical_traps = physical_traps
 
 	def enable_display(self):
 		if not self.display:
@@ -131,6 +133,9 @@ class SimpleNavEnv(gym.Env):
 	def get_robot_pos(self):
 		pos = self.robot.get_pos()
 		return [pos.x(), pos.y(), pos.theta()]
+
+        def get_collision(self):
+                return self.robot.get_collision()
 
 	def get_laserranges(self):
 		out = list()
@@ -193,6 +198,9 @@ class SimpleNavEnv(gym.Env):
 		#episode_over = self.still>=self.still_limit
 		episode_over = False
 
+                if self.physical_traps:
+                        episode_over = self.get_collision()
+                
 		dist_obj = dist(self.current_pos, self.goalPos)
 
 		return sensors, reward, episode_over, {"dist_obj":dist_obj, "robot_pos":self.current_pos}
