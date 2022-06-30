@@ -21,7 +21,7 @@ class SimpleNavPosEnv(SimpleNavEnv):
                                  light_sensor_mode=light_sensor_mode,
                                  physical_traps=physical_traps)
                 
-                self.observation_space = spaces.Box(low=np.array([0,0,-2*np.pi]), high=np.array([600,600,2*np.pi], dtype=np.float32))
+                self.observation_space = spaces.Box(low=np.array([0,0,-np.inf, -np.inf, -1, -1]), high=np.array([600,600,np.inf,np.inf,1,1], dtype=np.float32))
                 self.action_space = spaces.Box(low=-self.maxVel, high=self.maxVel, shape=(2,), dtype=np.float32)
 
         def get_all_sensors(self):

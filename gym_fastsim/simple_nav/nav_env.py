@@ -68,6 +68,7 @@ class SimpleNavEnv(gym.Env):
         # Fastsim setup
         # XML files typically contain relative names (for map) wrt their own path. Make that work
         xml_dir, xml_file = os.path.split(xml_env)
+        self.xml_env = xml_env
         if(xml_dir == ""):
             xml_dir = "./"
         oldcwd = os.getcwd()
@@ -220,6 +221,17 @@ class SimpleNavEnv(gym.Env):
         return self.reward_func(self)  # Use reward extraction function
 
     def reset(self):
+        xml_dir, xml_file = os.path.split(self.xml_env)
+        if(xml_dir == ""):
+            xml_dir = "./"
+        oldcwd = os.getcwd()
+        os.chdir(xml_dir)
+        settings = fs.Settings(xml_file)
+        os.chdir(oldcwd)
+
+        self.map = settings.map()
+        self.robot = settings.robot()
+        
         p = fs.Posture(*self.initPos)
         self.robot.set_pos(p)
         self.current_pos = self.get_robot_pos()
