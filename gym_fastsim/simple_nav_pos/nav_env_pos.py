@@ -25,4 +25,9 @@ class SimpleNavPosEnv(SimpleNavEnv):
                 self.action_space = spaces.Box(low=-self.maxVel, high=self.maxVel, shape=(2,), dtype=np.float32)
 
         def get_all_sensors(self):
-                return self.current_pos
+                state = [0.]*6
+                state[:2] = self.current_pos[:2]
+                state[2:4] = [self.current_pos[i] - self.old_pos[i] for i in range(2)]
+                a = self.current_pos[2]
+                state[4:] = [np.sin(a), np.cos(a)]
+                return state

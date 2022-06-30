@@ -196,11 +196,11 @@ class SimpleNavEnv(gym.Env):
         self.robot.move(self.v1_motor_order,
                         self.v2_motor_order, self.map, sticky_walls)
 
-        sensors = self.get_all_sensors()
-        reward = self._get_reward()
-
         self.old_pos = self.current_pos
         self.current_pos = self.get_robot_pos()
+
+        sensors = self.get_all_sensors()
+        reward = self._get_reward()
 
         # if(sqdist(p,self.roldpos)<0.001**2):
         #	self.still=self.still+1
