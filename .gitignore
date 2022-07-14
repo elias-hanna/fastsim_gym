@@ -1,0 +1,16 @@
+.idea/
+Pipfile
+build/
+dist/
+*.egg-info/**
+*.out
+*~
+data/
+*#*
+*/__pycache__/*
+*pycache*
+analysis/*
+!analysis/model_analysis.py
+!analysis/count_bins.py
+!analysis/plot_all_analysis.py
+!analysis/plot_coverage.py
