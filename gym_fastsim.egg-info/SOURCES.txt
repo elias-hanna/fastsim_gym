@@ -10,6 +10,7 @@ gym_fastsim/assets/LS_maze_hard.xml
 gym_fastsim/assets/cuisine.pbm
 gym_fastsim/assets/empty_map.pbm
 gym_fastsim/assets/empty_map.xml
+gym_fastsim/assets/empty_map_huge.xml
 gym_fastsim/assets/example.xml
 gym_fastsim/assets/maze_hard.pbm
 gym_fastsim/simple_nav/__init__.py
