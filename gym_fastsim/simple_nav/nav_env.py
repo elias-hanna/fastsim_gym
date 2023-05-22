@@ -122,7 +122,8 @@ class SimpleNavEnv(gym.Env):
             [self.maxSensorRange]*n_lasers + [1. if (self.ls_mode == "realistic") else self.maxLightSensorRange]*2 + [1.]*n_lightsensors, dtype=np.float32))
         self.action_space = spaces.Box(
             low=-self.maxVel, high=self.maxVel, shape=(2,), dtype=np.float32)
-
+        ## [lasers*n_lasers, bumpers*2, lightsensors*n_lightsensors]
+        self.state_dim = self.observation_space.shape[0] 
         # Reward
         if(reward_func not in reward_functions):
             raise RuntimeError("Unknown reward '%s'" % str(reward_func))
@@ -215,11 +216,12 @@ class SimpleNavEnv(gym.Env):
 
         dist_obj = dist(self.current_pos, self.goalPos)
 
-        return sensors, reward, episode_over, {"dist_obj": dist_obj, "robot_pos": self.current_pos}
+        return sensors, reward, episode_over, \
+            {"dist_obj": dist_obj, "robot_pos": self.current_pos}
 
     def _get_reward(self):
         return self.reward_func(self)  # Use reward extraction function
-
+    
     def reset(self):
         xml_dir, xml_file = os.path.split(self.xml_env)
         if(xml_dir == ""):
