@@ -43,7 +43,9 @@ class SimpleNavPosEnv(SimpleNavEnv):
                         # import pdb;pdb.set_trace()
                 p = fs.Posture(*pos)
                 self.robot.set_pos(p)
-        
+                self.current_pos = self.get_robot_pos()
+                self.old_pos = self.current_pos
+
         def get_all_sensors(self):
                 state = [0.]*6
                 state[:2] = self.current_pos[:2]
