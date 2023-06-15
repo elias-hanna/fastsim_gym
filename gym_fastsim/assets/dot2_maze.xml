@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<fastsim>
+  <display enable="true"/>
+  <!-- world -->
+  <map name="dot2_maze.pbm" size="1000"/>
+
+<!-- /!\ WARNING /!\ The robot "diameter" is actually a radius ! --> 
+  <robot x="500" y="500" theta="-45" diameter="10"/> <!-- Start pos : center -->
+	
+  <goal x="400" y="500" color="0" diameter="7"/> <!-- Goal pos : under -->
+  
+  <!-- sensors -->
+  <laser range="100" angle="45"/>
+  <laser range="100" angle="0"/>
+  <laser range="100" angle="-45"/>
+  <!-- <radar slices="4" color="0"/> --> <!-- radar disabled for now -->
+</fastsim>
